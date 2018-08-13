@@ -1,0 +1,35 @@
+project.ext {
+    env = project.hasProperty("environment") ? project.property("environment") : "dev"
+    nav = project.hasProperty("environment.native") ? project.property("environment.native") : "prod"
+
+    if ("dev".equalsIgnoreCase(env)) {
+        minSdkVersion = 17
+        compileSdkVersion = 26
+        targetSdkVersion = 26
+        buildToolsVersion = "26.0.2"
+        supportCompatVersion = "26.1.0"
+    } else {
+        minSdkVersion = 17
+        compileSdkVersion = 27
+        targetSdkVersion = 27
+        buildToolsVersion = "27.0.2"
+        supportCompatVersion = "27.0.2"
+    }
+
+    if (!project.hasProperty('modulePrefix')) {
+        modulePrefix = ':'
+    }
+
+    junitVersin = "4.12"
+    testRunnerVersion = "1.0.1"
+    testEspressoCoreVersion = "3.0.1"
+
+    constraintLayoutVersion = "1.0.2"
+    archLifecycleVersion = "1.1.0"
+
+    butterknifeVersion = "8.8.1"
+    rxJavaVersion = "2.1.10"
+    rxAndroidVersion = "2.0.2"
+    rxBindingVersion = "2.1.1"
+    rxLifecycleVersion = "2.2.1"
+}

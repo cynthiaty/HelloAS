@@ -1,0 +1,58 @@
+apply from: rootDir.absolutePath + '/constants.gradle'
+apply plugin: 'com.android.application'
+
+description 'JNI live555'
+
+android {
+    compileSdkVersion project.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.example.cynthiaty.live555"
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDir("src/main/assets-" + env)
+            }
+        }
+    }
+
+    if ("prod".equalsIgnoreCase(nav)) {
+        sourceSets {
+            main {
+                jniLibs.srcDir 'src/main/libs'
+                jni.srcDirs = [] // Disable the automatic ndk-build call by Android Studio.
+            }
+        }
+    } else {
+        externalNativeBuild {
+            ndkBuild {
+                path "src/main/jni/Android.mk"
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:${supportCompatVersion}"
+    implementation "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
+    testImplementation "junit:junit:${junitVersin}"
+    androidTestImplementation "com.android.support.test:runner:${testRunnerVersion}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${testEspressoCoreVersion}"
+    implementation "com.jakewharton:butterknife:${butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+}
