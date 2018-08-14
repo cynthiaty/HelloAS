@@ -2,4 +2,4 @@ Module:
     helloworld
     hellotcpsocket
     fileoperation
-    live555-client
+    live555(client)
